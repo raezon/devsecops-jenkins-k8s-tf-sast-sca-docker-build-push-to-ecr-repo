@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+        AWS_CREDENTIALS_ID = 'aws-credentials'
+	}
   tools { 
         maven 'Maven_3_5_2'  
     }
@@ -31,7 +34,7 @@ pipeline {
 	stage('Push') {
             steps {
                 script{
-                    docker.withRegistry('https://280415466858.dkr.ecr.eu-central-1.amazonaws.com', credentialsId: 'aws-credentials') {
+                    docker.withRegistry('https://280415466858.dkr.ecr.eu-central-1.amazonaws.com', AWS_CREDENTIALS_ID) {
                     app.push("latest")
                     }
                 }
